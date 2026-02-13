@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+<style>
+body{
+  margin:0;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
+}
+
+.heart{
+  position:relative;
+  width:220px;
+  height:200px;
+  cursor:pointer;
+}
+
+.petal{
+  position:absolute;
+  width:12px;
+  height:12px;
+  background:red;
+  border-radius:50%;
+  transition:all 0.8s ease;
+}
+
+.text{
+  position:absolute;
+  width:100%;
+  text-align:center;
+  top:80px;
+  color:white;
+  font-size:24px;
+  font-family:sans-serif;
+  pointer-events:none;
+}
+</style>
+</head>
+<body>
+
+<div class="heart" onclick="scatter()">
+  <div class="text">I love you ❤️</div>
+</div>
+
+<script>
+const heart = document.querySelector(".heart");
+let petals = [];
+
+function createHeart(){
+  heart.innerHTML = '<div class="text">I love you ❤️</div>';
+  petals = [];
+
+  for(let t=0; t<Math.PI*2; t+=0.2){
+    let x = 16*Math.pow(Math.sin(t),3);
+    let y = -(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+
+    let petal = document.createElement("div");
+    petal.className="petal";
+    petal.style.left = (110 + x*8)+"px";
+    petal.style.top = (90 + y*8)+"px";
+
+    heart.appendChild(petal);
+    petals.push(petal);
+  }
+}
+
+function scatter(){
+  petals.forEach(p=>{
+    p.style.left = (Math.random()*400-100)+"px";
+    p.style.top = (Math.random()*400-100)+"px";
+  });
+
+  setTimeout(()=>{
+    createHeart();
+  },800);
+}
+
+createHeart();
+</script>
+
+</body>
+</html>
